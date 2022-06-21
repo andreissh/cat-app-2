@@ -1,0 +1,46 @@
+@mixin exo {
+    font-family: "Exo2.0";
+    font-weight: 100;
+}
+
+.outerContent {
+    background: url(../assets/images/bg.png);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.innerContent {
+    width: 1120px;
+
+    @media (max-width: 1200px) {
+        width: 720px;
+        margin: 50px 0;
+    }
+
+    @media (max-width: 768px) {
+        width: 320px;
+    }
+}
+
+.title {
+    @include exo;
+    font-size: 36px;
+    line-height: 44px;
+    text-align: center;
+    color: #fff;
+
+    margin-bottom: 24px;
+}
+
+.packagesContainer {
+    display: flex;
+    column-gap: 80px;
+
+    @media (max-width: 1200px) {
+        flex-wrap: wrap;
+        row-gap: 80px;
+        justify-content: center;
+    }
+}

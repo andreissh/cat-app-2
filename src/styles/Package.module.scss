@@ -1,0 +1,192 @@
+.packageWrapper {
+    width: 320px;
+}
+
+.package {
+    position: relative;
+    background-color: #fff;
+    min-height: 480px;
+    clip-path: polygon(42px 0, 100% 0, 100% 100%, 0 100%, 0 42px);
+    border: 4px solid #1698d9;
+    border-radius: 12px;
+    margin-bottom: 14px;
+    text-align: left;
+    padding-left: 48px;
+    cursor: pointer;
+
+    &::before {
+        position: absolute;
+        content: "";
+        top: 14px;
+        left: -10px;
+        width: 60px;
+        height: 4px;
+        transform: rotate(-45deg);
+        background-color: #1698d9;
+    }
+
+    &:hover {
+        border-color: #2ea8e6;
+
+        &::before {
+            background-color: #2ea8e6;
+        }
+
+        & .packageWeight {
+            background-color: #2ea8e6;
+        }
+    }
+
+    &Selected {
+        border-color: #d91667;
+        transition: 0.5s;
+
+        &::before {
+            background-color: #d91667;
+            transition: 0.5s;
+        }
+
+        &:hover {
+            border-color: #d91667;
+
+            &::before {
+                background-color: #d91667;
+            }
+
+            & .packageWeight {
+                background-color: #d91667;
+            }
+        }
+
+        & .packageWeight {
+            background-color: #d91667;
+            transition: 0.5s;
+        }
+    }
+
+    &Disabled {
+        border: 4px solid #b3b3b3;
+
+        &::before {
+            background-color: #b3b3b3;
+        }
+
+        &:hover {
+            border-color: #b3b3b3;
+
+            &::before {
+                background-color: #b3b3b3;
+            }
+
+            & .packageWeight {
+                background-color: #b3b3b3;
+            }
+        }
+
+        & .packageWeight {
+            background-color: #b3b3b3;
+        }
+
+        & .packageImg {
+            opacity: 0.5;
+        }
+
+        & p {
+            color: #b3b3b3;
+            opacity: 0.5;
+        }
+    }
+}
+
+.packageUpperText {
+    font-family: "Trebuchet MS";
+    font-size: 16px;
+    line-height: 19px;
+    color: #666;
+    margin: 17px 0 5px 0;
+}
+
+.packageName {
+    font-family: "Trebuchet MS";
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 56px;
+    color: #000;
+}
+
+.packageNameAddition {
+    font-family: "Trebuchet MS";
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    color: #000000;
+    margin-bottom: 15px;
+}
+
+.packageInfo {
+    font-family: "Trebuchet MS";
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #666;
+}
+
+.packageImg {
+    position: absolute;
+    width: 312px;
+    bottom: 0;
+    left: 0;
+    border-radius: 8px;
+}
+
+.packageWeight {
+    position: absolute;
+    content: "";
+    bottom: 12px;
+    right: 12px;
+    width: 80px;
+    height: 80px;
+    background-color: #1698d9;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.packageWeightNum {
+    font-family: "Trebuchet MS";
+    font-size: 42px;
+    line-height: 42px;
+    color: #fff;
+}
+
+.packageWeightUnit {
+    font-family: "Trebuchet MS";
+    font-size: 20px;
+    line-height: 20px;
+    color: #fff;
+}
+
+.bottomText {
+    font-family: "Trebuchet MS";
+    font-size: 13px;
+    line-height: 15px;
+    color: #fff;
+}
+
+.bottomTextBuy {
+    color: #1698d9;
+    border-bottom: 1px dashed #1698d9;
+    cursor: pointer;
+}
+
+.bottomTextDot {
+    color: #1698d9;
+}
+
+.cancel {
+    display: block;
+    color: #1698d9;
+    cursor: pointer;
+}
