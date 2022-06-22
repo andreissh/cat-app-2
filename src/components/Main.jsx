@@ -3,36 +3,41 @@ import styles from "../styles/Main.module.scss";
 import Package from "./Package";
 
 const Main = () => {
-    const [weightTotal, setWeightTotal] = useState(25.5);
+    const [smallPack, setSmallPack] = useState({
+        details: "с фуа-гра",
+        portions: 10,
+        weight: 0.5,
+        bonus: 1,
+        total: 7,
+        current: 7,
+    });
+
+    const [mediumPack, setMediumPack] = useState({
+        details: "с рыбой",
+        portions: 40,
+        weight: 2,
+        bonus: 2,
+        total: 5,
+        current: 5,
+    });
+
+    const [bigPack, setBigPack] = useState({
+        details: "с курой",
+        portions: 100,
+        weight: 5,
+        bonus: 5,
+        total: 4,
+        current: 4,
+    });
 
     return (
         <div className={styles.outerContent}>
             <div className={styles.innerContent}>
                 <h1 className={styles.title}>Ты сегодня покормил кота?</h1>
                 <div className={styles.packagesContainer}>
-                    <Package
-                        addInfo="с фуа-гра"
-                        quantity={10}
-                        weight={0.5}
-                        weightTotal={weightTotal}
-                        setWeightTotal={setWeightTotal}
-                    />
-                    <Package
-                        addInfo="с рыбой"
-                        quantity={40}
-                        bonus={2}
-                        weight={2}
-                        weightTotal={weightTotal}
-                        setWeightTotal={setWeightTotal}
-                    />
-                    <Package
-                        addInfo="с курой"
-                        quantity={100}
-                        bonus={5}
-                        weight={5}
-                        weightTotal={weightTotal}
-                        setWeightTotal={setWeightTotal}
-                    />
+                    <Package pack={smallPack} setPack={setSmallPack} />
+                    <Package pack={mediumPack} setPack={setMediumPack} />
+                    <Package pack={bigPack} setPack={setBigPack} />
                 </div>
             </div>
         </div>

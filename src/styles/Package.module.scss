@@ -47,14 +47,14 @@
         }
 
         &:hover {
-            border-color: #d91667;
+            border-color: lighten(#d91667, 10%);
 
             &::before {
-                background-color: #d91667;
+                background-color: lighten(#d91667, 10%);
             }
 
             & .packageWeight {
-                background-color: #d91667;
+                background-color: lighten(#d91667, 10%);
             }
         }
 
@@ -173,6 +173,10 @@
     font-size: 13px;
     line-height: 15px;
     color: #fff;
+
+    &Disabled {
+        color: #ffff66;
+    }
 }
 
 .bottomTextBuy {

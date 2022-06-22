@@ -3,113 +3,97 @@ import styles from "../styles/Package.module.scss";
 import cat from "../assets/images/cat.png";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useCallback } from "react";
 
-const Package = ({ addInfo, quantity, bonus, weight, weightTotal, setWeightTotal }) => {
-    const pack = useRef();
+const Package = ({ pack, setPack }) => {
+    const packTarget = useRef();
     const topText = useRef();
     const [selected, setSelected] = useState(false);
     const [disabled, setDisabled] = useState(false);
 
-    const handleClick = useCallback(() => {
-        const target = pack.current;
+    const choosePack = () => {
+        const target = packTarget.current;
 
-        weightTotal >= weight ? setWeightTotal(weightTotal - weight) : setDisabled(true);
+        pack.current !== 0 && setPack({ ...pack, current: (pack.current -= 1) });
+        pack.current === 0 && setDisabled(true);
         target.classList.add(`${styles.packageSelected}`);
         setSelected(true);
-    }, [setWeightTotal, weight, weightTotal]);
+    };
 
-    const handleClickSelected = useCallback(() => {
-        const target = pack.current;
+    const cancelChoice = () => {
+        const target = packTarget.current;
 
-        setWeightTotal(25.5);
+        setPack({ ...pack, current: pack.total });
+        if (disabled) {
+            setDisabled(false);
+            target.classList.remove(`${styles.packageDisabled}`);
+        }
         target.classList.remove(`${styles.packageSelected}`);
         setSelected(false);
-    }, [setWeightTotal]);
+    };
 
     useEffect(() => {
-        const target = pack.current;
-
-        target.addEventListener("click", handleClick);
-    });
-
-    useEffect(() => {
-        const target = pack.current;
-        const text = topText.current;
-
-        const onMouseLeaveSelected = () => {
-            text.innerText = "Сказочное заморское яство";
-            text.style.color = "#666";
-        };
-
-        if (selected && !disabled) {
-            target.addEventListener("mouseleave", onMouseLeaveSelected);
-        }
-
-        return () => {
-            target.removeEventListener("mouseleave", onMouseLeaveSelected);
-        };
-    }, [disabled, selected]);
-
-    useEffect(() => {
-        const target = pack.current;
-        const text = topText.current;
+        const target = packTarget.current;
 
         if (disabled) {
             target.classList.add(`${styles.packageDisabled}`);
-            text.innerText = "Сказочное заморское яство";
-            text.style.color = "#666";
         }
     }, [disabled]);
 
     return (
         <div className={styles.packageWrapper}>
-            <div className={styles.package} ref={pack} onClick={handleClick}>
+            <div className={styles.package} ref={packTarget} onClick={choosePack}>
                 <p className={styles.packageUpperText} ref={topText}>
                     Сказочное заморское яство
                 </p>
                 <p className={styles.packageName}>Нямушка</p>
-                <p className={styles.packageNameAddition}>{addInfo}</p>
+                <p className={styles.packageNameAddition}>{pack.details}</p>
                 <p className={styles.packageInfo}>
-                    {quantity} порций
+                    {pack.portions} порций
                     <br />
-                    {!bonus ? "мышь" : bonus === 2 ? `${bonus} мыши` : `${bonus} мышей`} в подарок
+                    {pack.bonus % 100 !== 11 && pack.bonus % 10 === 1
+                        ? `${pack.bonus} мышь`
+                        : !(pack.bonus % 100 >= 12 && pack.bonus % 100 <= 14) &&
+                          pack.bonus % 10 >= 2 &&
+                          pack.bonus % 10 <= 4
+                        ? `${pack.bonus} мыши`
+                        : `${pack.bonus} мышей`}{" "}
+                    в подарок
                 </p>
                 <img className={styles.packageImg} src={cat} alt="cat"></img>
                 <div className={styles.packageWeight}>
                     <span className={styles.packageWeightNum}>
-                        {Number.isInteger(weight) ? weight : `${weight}`.split(".").join(",")}
+                        {Number.isInteger(pack.weight) ? pack.weight : `${pack.weight}`.split(".").join(",")}
                     </span>
                     <span className={styles.packageWeightUnit}>кг</span>
                 </div>
             </div>
             {disabled ? (
-                <span className={styles.bottomText} style={{ color: "#ffff66" }}>
-                    Печалька, {addInfo} закончился.
+                <span className={`${styles.bottomText} ${styles.bottomTextDisabled}`}>
+                    Печалька, {pack.details} закончился.
                 </span>
             ) : !selected ? (
                 <span className={styles.bottomText}>
                     Чего сидишь? Порадуй котэ,{" "}
-                    <span className={styles.bottomTextBuy} onClick={handleClick}>
+                    <span className={styles.bottomTextBuy} onClick={choosePack}>
                         купи
                     </span>
                     <span className={styles.bottomTextDot}>.</span>
                 </span>
-            ) : addInfo === "с фуа-гра" ? (
+            ) : pack.details === "с фуа-гра" ? (
                 <span className={styles.bottomText}>Печень утки разварная с артишоками.</span>
-            ) : addInfo === "с рыбой" ? (
+            ) : pack.details === "с рыбой" ? (
                 <span className={styles.bottomText}>Головы щучьи с чесноком да свежайшая сёмгушка.</span>
-            ) : addInfo === "с курой" ? (
+            ) : pack.details === "с курой" ? (
                 <span className={styles.bottomText}>Филе из цыплят с трюфелями в бульоне.</span>
             ) : (
                 <span></span>
             )}
             {selected && (
                 <>
-                    <span className={styles.cancel} onClick={handleClick}>
+                    <span className={styles.cancel} onClick={choosePack}>
                         Купить еще?
                     </span>
-                    <span className={styles.cancel} onClick={handleClickSelected}>
+                    <span className={styles.cancel} onClick={cancelChoice}>
                         Отменить выбор?
                     </span>
                 </>
